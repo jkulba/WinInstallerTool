@@ -11,8 +11,11 @@ jobs:
       uses: actions/checkout@v2
 
     - name: Install PS2EXE
-      run: Install-Module -Name ps2exe -RequiredVersion 1.0.14 -Force -Scope CurrentUser
+      shell: powershell
+      run: |
+        Install-Module -Name ps2exe -RequiredVersion 1.0.14 -Force -Scope CurrentUser
       
     - name: Convert PowerShell script to EXE
+      shell: powershell
       run: |
         ps2exe .\copyfiles.ps1 .\output\copyfiles.exe
