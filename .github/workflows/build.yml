@@ -1,0 +1,21 @@
+name: Convert PowerShell to EXE
+
+on: [push]
+
+jobs:
+  build:
+    runs-on: windows-latest
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v2
+
+    - name: Set up PowerShell
+      uses: actions/setup-powershell@v1
+
+    - name: Install PS2EXE
+      run: Install-Module -Name ps2exe -Force -Scope CurrentUser
+
+    - name: Convert PowerShell script to EXE
+      run: |
+        ps2exe .\copyfiles.ps1 .\output\copyfiles.exe
