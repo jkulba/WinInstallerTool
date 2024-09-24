@@ -1,28 +1,29 @@
-name: Convert PowerShell to EXE
+name: Package PowerShell Script
 
 on: [push]
 
 jobs:
   build:
-    runs-on: ubuntu-latest
+    runs-on: windows-latest
 
     steps:
     - name: Checkout repository
       uses: actions/checkout@v2
 
-    - name: "Setup PowerShell Toolkit"
-      uses: "hugoalh-studio/setup-powershell-toolkit-ghaction@v2.0.0"
-    - run: |
-          Import-Module -Name 'hugoalh.GitHubActionsToolkit' -Scope 'Local'
-          Write-GitHubActionsNotice -Message 'Hello, world!'
-      shell: "pwsh"
-      
-    - name: Install PS2EXE
-      run: |
-        Install-Module -Name ps2exe -RequiredVersion 1.0.14 -Force -Scope 'CurrentUser'
-      
-    - name: Convert PowerShell script to EXE
+    - name: Set up PowerShell
+      uses: actions/setup-powershell@v2
+
+    - name: Install ps2exe module
+      run: Install-Module -Name ps2exe -Force -Scope CurrentUser
+
+    - name: Package PowerShell script
       run: |
         ps2exe .\copyfiles.ps1 .\output\copyfiles.exe
+        # If you have additional files, you can copy them to the output directory
         Copy-Item -Path .\employee.xml -Destination .\output\
 
+    - name: Upload artifact
+      uses: actions/upload-artifact@v2
+      with:
+        name: packaged-script
+        path: .\output\copyfiles.exe
