@@ -14,6 +14,7 @@ jobs:
       run: Install-Module -Name ps2exe -Force -Scope CurrentUser
 
     - name: Package PowerShell script
+      shell: powershell
       run: |
         ps2exe .\copyfiles.ps1 .\output\copyfiles.exe
         # If you have additional files, you can copy them to the output directory
