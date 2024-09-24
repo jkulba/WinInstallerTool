@@ -20,7 +20,7 @@ jobs:
     - name: Install PS2EXE
       shell: "pwsh"
       run: |
-        Install-Module -Name ps2exe -RequiredVersion 1.0.14 -Force -Scope 'Local'
+        Install-Module -Name ps2exe -RequiredVersion 1.0.14 -Force -Scope 'CurrentUser'
       
     - name: Convert PowerShell script to EXE
       shell: "pwsh"
