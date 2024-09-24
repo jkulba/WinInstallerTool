@@ -18,11 +18,13 @@ jobs:
       shell: "pwsh"
       
     - name: Install PS2EXE
-      shell: powershell
+      shell: "pwsh"
       run: |
-        Install-Module -Name ps2exe -RequiredVersion 1.0.14 -Force -Scope CurrentUser
+        Install-Module -Name ps2exe -RequiredVersion 1.0.14 -Force -Scope 'Local'
       
     - name: Convert PowerShell script to EXE
-      shell: powershell
+      shell: "pwsh"
       run: |
         ps2exe .\copyfiles.ps1 .\output\copyfiles.exe
+        Copy-Item -Path .\employee.xml -Destination .\output\
+
