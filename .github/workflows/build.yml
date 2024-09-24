@@ -17,6 +17,7 @@ jobs:
     - name: Package PowerShell script
       shell: powershell
       run: |
+        New-Item -Path "." -Name "output" -ItemType Directory
         ps2exe .\copyfiles.ps1 .\output\copyfiles.exe
         # If you have additional files, you can copy them to the output directory
         Copy-Item -Path .\employee.xml -Destination .\output\
